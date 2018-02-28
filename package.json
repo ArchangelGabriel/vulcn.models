@@ -1,6 +1,6 @@
 {
-  "name": "models",
-  "version": "1.0.0",
+  "name": "vulcn.models",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,6 +11,7 @@
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
     "mongoose": "^5.0.7",
-    "ramda": "^0.25.0"
+    "ramda": "^0.25.0",
+    "require-directory": "^2.1.1"
   }
 }
