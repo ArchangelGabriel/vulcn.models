@@ -9,6 +9,7 @@ const schema = new mongoose.Schema({
   scopes: [String],
 }, {
   timestamps: true,
+  versionKey: '_v',
 })
 
 schema.index({ account: 1, email: 1 })

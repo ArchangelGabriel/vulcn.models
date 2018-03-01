@@ -13,6 +13,7 @@ const schema = new mongoose.Schema({
   }
 }, {
   timestamps: true,
+  versionKey: '_v',
 })
 
 module.exports = mongoose.model('Account', schema)
