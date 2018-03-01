@@ -14,7 +14,7 @@ const schema = new mongoose.Schema({
 
 var Integration = mongoose.model('Integration', schema)
 
-var Analytics = Integration.discriminator('Analytics', new Schema({
+var Analytics = Integration.discriminator('Analytics', new mongoose.Schema({
   ga_account_id: { type: String },
   ga_account_name: { type: String },
   ga_property_id: { type: String },
@@ -24,7 +24,7 @@ var Analytics = Integration.discriminator('Analytics', new Schema({
   website_url: { type: String }
 }))
 
-var Adwords = Integration.discriminator('Adwords', new Schema({
+var Adwords = Integration.discriminator('Adwords', new mongoose.Schema({
   isMcc: { type: String },
   customerId: { type: String, required: true },
   timeZone: { type: String },
