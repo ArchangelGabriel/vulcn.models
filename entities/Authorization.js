@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Types = mongoose.Schema.Types
 
 const schema = new mongoose.Schema({
-  account: { type: Types.ObjectId, ref: 'Account' },
+  account: { type: Types.ObjectId, ref: 'Account', index: true },
   email: String,
   accessToken: String,
   refreshToken: String,
@@ -11,7 +11,5 @@ const schema = new mongoose.Schema({
   timestamps: true,
   versionKey: '_v',
 })
-
-schema.index({ account: 1, email: 1 })
 
 module.exports = mongoose.model('Authorization', schema)
