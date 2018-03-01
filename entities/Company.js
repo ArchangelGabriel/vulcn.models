@@ -10,6 +10,10 @@ const schema = new mongoose.Schema({
     type: String,
   },
   account: { type: Types.ObjectId, ref: 'Account', index: true },
+  name: {
+    type: String,
+    required: true
+  }
 }, {
   timestamps: true,
 })

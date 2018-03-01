@@ -10,7 +10,8 @@ const schema = new mongoose.Schema({
     type: String,
     enum: ['ADVERTISER', 'AGENCY'],
     required: true,
-  }
+  },
+  users: [{ type: Types.ObjectId, ref: 'User', index: true }],
 }, {
   timestamps: true,
 })
