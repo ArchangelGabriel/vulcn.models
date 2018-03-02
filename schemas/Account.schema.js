@@ -1,3 +1,4 @@
+module.exports = `
 enum AccountType {
   ADVERTISER
   AGENCY
@@ -15,3 +16,4 @@ input AccountInput {
   name: String
   type: AccountType
 }
+`

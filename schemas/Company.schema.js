@@ -1,3 +1,4 @@
+module.exports = `
 type Company {
   name: String
   websiteUrl: String
@@ -10,3 +11,4 @@ input CompanyInput {
   name: String
   websiteUrl: String
 }
+`

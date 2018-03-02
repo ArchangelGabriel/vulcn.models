@@ -1,4 +1,4 @@
-
+module.exports = `
 type User {
   email: String
   accounts: [Account]
@@ -10,3 +10,4 @@ input UserInput {
   email: String
   password: String
 }
+`

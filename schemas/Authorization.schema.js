@@ -1,3 +1,4 @@
+module.exports = `
 type Authorization {
   email: String
   accessToken: String
@@ -7,3 +8,4 @@ type Authorization {
 input AuthorizationInput {
 
 }
+`
