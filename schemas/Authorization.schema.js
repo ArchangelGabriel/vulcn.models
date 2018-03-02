@@ -1,5 +1,6 @@
 module.exports = `
 type Authorization {
+  _id: ID
   account: Account
   email: String
   accessToken: String

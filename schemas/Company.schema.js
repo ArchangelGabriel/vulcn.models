@@ -1,5 +1,6 @@
 module.exports = `
 type Company {
+  _id: ID
   name: String
   websiteUrl: String
   account: Account
