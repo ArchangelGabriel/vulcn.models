@@ -11,7 +11,6 @@ const schema = new mongoose.Schema({
 }, {
   timestamps: true,
   discriminatorKey: 'platform',
-  versionKey: '_v',
 })
 
 var Authorization = mongoose.model('Authorization', schema)
