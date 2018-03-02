@@ -2,12 +2,12 @@ const mongoose = require('mongoose')
 const Types = mongoose.Schema.Types
 
 const schema = new mongoose.Schema({
-  account: { type: Types.ObjectId, ref: 'Account', index: true },
+  account: { type: Types.ObjectId, ref: 'Account', index: true, required: true },
   email: String,
   accessToken: String,
   refreshToken: String,
   scopes: [String],
-  platform: { type: String, enum: ['Google', 'Bing'] }
+  platform: {type: String, enum: ['Google', 'Bing'], required: true}
 }, {
   timestamps: true,
   discriminatorKey: 'platform',
@@ -18,7 +18,7 @@ var Authorization = mongoose.model('Authorization', schema)
 
 var Google = Authorization.discriminator('Google', new mongoose.Schema({
   sub: { type: String, required: true },
-  token_expiry: { type: Date },
+  expiry_date: { type: Date },
   client_id: { type: String }
 }))
 
