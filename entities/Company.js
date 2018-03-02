@@ -12,6 +12,7 @@ const schema = new mongoose.Schema({
   account: { type: Types.ObjectId, ref: 'Account', index: true }
 }, {
   timestamps: true,
+  versionKey: '_v',
 })
 
 module.exports = mongoose.model('Company', schema)
