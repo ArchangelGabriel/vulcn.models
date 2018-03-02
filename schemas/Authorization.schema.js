@@ -6,6 +6,8 @@ type Authorization {
 }
 
 input AuthorizationInput {
-
+  email: String
+  accessToken: String
+  scope: [String]
 }
 `
