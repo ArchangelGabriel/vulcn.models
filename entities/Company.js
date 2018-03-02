@@ -9,11 +9,7 @@ const schema = new mongoose.Schema({
   websiteUrl: {
     type: String,
   },
-  account: { type: Types.ObjectId, ref: 'Account', index: true },
-  name: {
-    type: String,
-    required: true
-  }
+  account: { type: Types.ObjectId, ref: 'Account', index: true }
 }, {
   timestamps: true,
 })
