@@ -18,7 +18,8 @@ var Authorization = mongoose.model('Authorization', schema)
 var Google = Authorization.discriminator('Google', new mongoose.Schema({
   sub: { type: String, required: true },
   expiry_date: { type: Date },
-  client_id: { type: String }
+  client_id: { type: String },
+  client_secret: { type: String }
 }))
 
 var Bing = Authorization.discriminator('Bing', new mongoose.Schema({
