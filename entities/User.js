@@ -1,6 +1,8 @@
+const b = require('bcrypt')
 const bcrypt = require('bcrypt-nodejs')
 const mongoose = require('mongoose')
 const removeProps = require('../utils/removeProps')
+const { SECRET } = require('../config')
 
 const Types = mongoose.Schema.Types
 
@@ -35,6 +37,34 @@ schema.pre('save', function (next) {
     })
   })
 })
+
+schema.methods.generateJWT = function() {
+  const today = new Date()
+  const exp = new Date(today)
+  exp.setDate(today.getDate() + 60)
+
+  return jwt.sign(
+    {
+      _id: this._id,
+      email: this.email,
+      accounts: this.accounts,
+      exp: parseInt(exp.getTime() / 1000, 10),
+    },
+    SECRET,
+  )
+}
+
+schema.methods.toAuthJSON = function() {
+  return {
+    _id: this._id,
+    email: this.email,
+    token: this.generateJWT(),
+  }
+}
+
+schema.methods.verifyPassword = function(password) {
+  return b.compare(password, this.password)
+} 
 
 module.exports = mongoose.model('User', schema)
 
