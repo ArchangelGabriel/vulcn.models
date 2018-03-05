@@ -1,9 +1,13 @@
 const mongoose = require('mongoose')
 const entities = require('./entities')
 
-const NODE_ENV = process.env.NODE_ENV && process.env.NODE_ENV.toUpperCase()
-const CONNECTION_STRING = process.env[`MONGO_URL_${NODE_ENV}`]
-const isProd = NODE_ENV === 'production'
+const {
+  CONNECTION_STRING,
+  SECRET,
+  isProd,
+} = require('./config')
+
+if (!SECRET) throw new Error('Environment `SECRET_${ENV}` must be defined')
 
 if (CONNECTION_STRING) mongoose.connect(CONNECTION_STRING, {
   autoIndex: isProd ? false : true,
