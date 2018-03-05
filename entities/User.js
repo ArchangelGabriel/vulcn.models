@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 const removeProps = require('../utils/removeProps')
+const { required } = require('../utils/auth')
+const attachCurrentAccountToQuery = require('../utils/attachCurrentAccountToQuery')
 const { SECRET } = require('../config')
 
 const Types = mongoose.Schema.Types
@@ -48,6 +50,7 @@ schema.methods.generateJWT = function() {
       _id: this._id,
       email: this.email,
       accounts: this.accounts,
+      currentAccount: this.currentAccount || this.accounts[0],
       exp: parseInt(exp.getTime() / 1000, 10),
     },
     SECRET
@@ -69,6 +72,11 @@ schema.methods.verifyPassword = function(password) {
 module.exports = mongoose.model('User', schema)
 
 module.exports.routeHooks = {
+  pre: {
+    plural: {
+      GET: [required, attachCurrentAccountToQuery]
+    }
+  },
   post: {
     all: [removeProps(['password'])]
   }
