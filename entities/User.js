@@ -68,10 +68,7 @@ schema.methods.verifyPassword = function(password) {
 
 module.exports = mongoose.model('User', schema)
 
-module.exports.hooks = {
-  pre: {
-    all: [(req, res, next) => { console.log(req.headers); next() }]
-  },
+module.exports.routeHooks = {
   post: {
     all: [removeProps(['password'])]
   }
