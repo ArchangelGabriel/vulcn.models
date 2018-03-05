@@ -19,7 +19,6 @@ const schema = new mongoose.Schema({
   accounts: [{ type: Types.ObjectId, ref: 'Account', index: true }]
 }, {
   timestamps: true,
-  versionKey: '_v',
 })
 
 schema.pre('save', function (next) {

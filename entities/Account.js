@@ -11,10 +11,8 @@ const schema = new mongoose.Schema({
     enum: ['ADVERTISER', 'AGENCY'],
     required: true,
   },
-  users: [{ type: Types.ObjectId, ref: 'User', index: true }],
 }, {
   timestamps: true,
-  versionKey: '_v',
 })
 
 module.exports = mongoose.model('Account', schema)
