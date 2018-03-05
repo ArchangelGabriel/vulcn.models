@@ -10,10 +10,9 @@ const schema = new mongoose.Schema({
     type: String,
     enum: ['ADVERTISER', 'AGENCY'],
     required: true,
-  }
+  },
 }, {
   timestamps: true,
-  versionKey: '_v',
 })
 
 module.exports = mongoose.model('Account', schema)
