@@ -1,6 +1,8 @@
-const bcrypt = require('bcrypt-nodejs')
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
-const removeProps = require('../utils/removeProps')
+const hashPassword = require('../modelhooks/hashPassword')
+const { SECRET } = require('../config')
 
 const Types = mongoose.Schema.Types
 
@@ -22,24 +24,35 @@ const schema = new mongoose.Schema({
   versionKey: '_v',
 })
 
-schema.pre('save', function (next) {
-  if (!this.isNew) return next()
+schema.pre('save', hashPassword)
 
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err) return next(err)
+schema.methods.generateJWT = function() {
+  const today = new Date()
+  const exp = new Date(today)
+  exp.setDate(today.getDate() + 60)
 
-    bcrypt.hash(this.password, salt, null, (err, result) => {
-      if (err) return next(err)
-      this.password = result
-      return next(null)
-    })
-  })
-})
+  return jwt.sign(
+    {
+      _id: this._id,
+      email: this.email,
+      accounts: this.accounts,
+      currentAccount: this.currentAccount || this.accounts[0],
+      exp: parseInt(exp.getTime() / 1000, 10),
+    },
+    SECRET
+  )
+}
 
-module.exports = mongoose.model('User', schema)
-
-module.exports.hooks = {
-  post: {
-    all: [removeProps(['password'])]
+schema.methods.toAuthJSON = function() {
+  return {
+    _id: this._id,
+    email: this.email,
+    token: this.generateJWT(),
   }
 }
+
+schema.methods.verifyPassword = function(password) {
+  return bcrypt.compare(password, this.password)
+} 
+
+module.exports = mongoose.model('User', schema)
