@@ -1,5 +1,5 @@
-const b = require('bcrypt')
-const bcrypt = require('bcrypt-nodejs')
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 const removeProps = require('../utils/removeProps')
 const { SECRET } = require('../config')
@@ -30,7 +30,7 @@ schema.pre('save', function (next) {
   bcrypt.genSalt(10, (err, salt) => {
     if (err) return next(err)
 
-    bcrypt.hash(this.password, salt, null, (err, result) => {
+    bcrypt.hash(this.password, salt, (err, result) => {
       if (err) return next(err)
       this.password = result
       return next(null)
@@ -50,7 +50,7 @@ schema.methods.generateJWT = function() {
       accounts: this.accounts,
       exp: parseInt(exp.getTime() / 1000, 10),
     },
-    SECRET,
+    SECRET
   )
 }
 
@@ -63,7 +63,7 @@ schema.methods.toAuthJSON = function() {
 }
 
 schema.methods.verifyPassword = function(password) {
-  return b.compare(password, this.password)
+  return bcrypt.compare(password, this.password)
 } 
 
 module.exports = mongoose.model('User', schema)
