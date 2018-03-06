@@ -13,16 +13,18 @@ const schema = new mongoose.Schema({
   discriminatorKey: 'platform',
 })
 
-var Authorization = mongoose.model('Authorization', schema)
+const Authorization = mongoose.model('Authorization', schema)
 
-var Google = Authorization.discriminator('Google', new mongoose.Schema({
+const Google = Authorization.discriminator('Google', new mongoose.Schema({
   sub: { type: String, required: true },
   expiry_date: { type: Date },
 }))
 
-var Bing = Authorization.discriminator('Bing', new mongoose.Schema({
+const Bing = Authorization.discriminator('Bing', new mongoose.Schema({
   user_id: { type: String, required: true },
   expires_in: { type: Date },
 }))
 
-module.exports = mongoose.model('Authorization', schema)
+module.exports = Authorization
+module.exports.Google = Google
+module.exports.Bing = Bing

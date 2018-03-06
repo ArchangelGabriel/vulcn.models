@@ -31,4 +31,6 @@ const Adwords = Integration.discriminator('Adwords', new mongoose.Schema({
   website_url: {type: String },
 }))
 
-module.exports = mongoose.model('Integration', schema)
+module.exports = Integration
+module.exports.Analytics = Analytics
+module.exports.Adwords = Adwords
