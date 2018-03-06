@@ -1,12 +1,20 @@
 const { required } = require('../utils/auth')
 const attachCurrentAccountToQuery = require('../utils/attachCurrentAccountToQuery')
 
-const UserHooks = {
-  pre: {
-    plural: {
-      GET: [required, attachCurrentAccountToQuery]
-    }
-  }
+const pre = {
+  getOne: [],
+  getAll: [required, attachCurrentAccountToQuery],
+  create: [],
+  update: [],
+  delete: [],
 }
 
-module.exports = UserHooks
+const post = {
+  getOne: [],
+  getAll: [],
+  create: [],
+  update: [],
+  delete: [],
+}
+
+module.exports = { pre, post }
